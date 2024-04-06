@@ -19,14 +19,15 @@ public class GameInput : MonoBehaviour
     // }    
      PlayerInputSystem playerInputAction;
     private void Awake(){
-     
+     //create a new PlayerInputSystem
         playerInputAction = new PlayerInputSystem();
         playerInputAction.Player.Enable();
     }
     //Get key input and return Vector
+    
     public Vector2 getMovementVector(){
+        //get Input value by Vector2
         Vector2 inputVector= playerInputAction.Player.Move.ReadValue<Vector2>();
-       Debug.Log(playerInputAction.Player.Move.ReadValue<Vector2>());
         inputVector=inputVector.normalized;
         return inputVector;
     }

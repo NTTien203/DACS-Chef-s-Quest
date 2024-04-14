@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -17,14 +18,22 @@ public class GameInput : MonoBehaviour
     //     }
     //     else instance=this;
     // }    
+    public event EventHandler OnInteractAction;
      PlayerInputSystem playerInputAction;
     private void Awake(){
      //create a new PlayerInputSystem
         playerInputAction = new PlayerInputSystem();
         playerInputAction.Player.Enable();
+        playerInputAction.Player.Interact.performed+=Interact_performed;
     }
-    //Get key input and return Vector
     
+    private void Interact_performed(InputAction.CallbackContext obj)
+    {
+       OnInteractAction?.Invoke(this, EventArgs.Empty);
+    }
+
+    //Get key input and return Vector
+
     public Vector2 getMovementVector(){
         //get Input value by Vector2
         Vector2 inputVector= playerInputAction.Player.Move.ReadValue<Vector2>();

@@ -9,15 +9,6 @@ using UnityEngine.PlayerLoop;
 public class GameInput : MonoBehaviour
 {
     
-    //singleton pattern
-    // public static GameInput instance 
-    //     { get; set; }
-    // private void Awake(){
-    //     if(instance!=null|| instance!=this){
-    //         Destroy(this);
-    //     }
-    //     else instance=this;
-    // }    
     public event EventHandler OnInteractAction;
      PlayerInputSystem playerInputAction;
     private void Awake(){
@@ -29,6 +20,7 @@ public class GameInput : MonoBehaviour
     
     private void Interact_performed(InputAction.CallbackContext obj)
     {
+       
        OnInteractAction?.Invoke(this, EventArgs.Empty);
     }
 

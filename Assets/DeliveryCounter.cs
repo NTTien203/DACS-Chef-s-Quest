@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class DeliveryCounter : BaseCounter
 {
+    public static DeliveryCounter instance{get;set;}
+
+    private void Awake() {
+        instance=this;
+    }
     public override void Interact(Player player)
     {
         if(player.hasKitchenObj()){

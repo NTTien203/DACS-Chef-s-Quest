@@ -1,11 +1,13 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class DeliveryManage : MonoBehaviour
 {
+    public event EventHandler OnRecipeSpawned;
+    public event EventHandler OnRecipeCompleted;
+    public event EventHandler OnRecipeFailed;
+    public event EventHandler OnRecipeSuccess;
     [SerializeField] RecipeListSO recipeListSO;
     private int waitingRecipesMax = 4;
     List<RecipeSO> waitingRecipeSOlist;
@@ -23,10 +25,11 @@ public class DeliveryManage : MonoBehaviour
         spawnRecipeTimer-=Time.deltaTime;
         if(spawnRecipeTimer<=0){
             spawnRecipeTimer=spawnRecipeMax;
-            RecipeSO waitingRecipeSO= recipeListSO.ListRecipeSO[Random.Range(0,recipeListSO.ListRecipeSO.Count)];
+            RecipeSO waitingRecipeSO= recipeListSO.ListRecipeSO[UnityEngine.Random.Range(0,recipeListSO.ListRecipeSO.Count)];
             if(waitingRecipeSOlist.Count<waitingRecipesMax){
                 Debug.Log(waitingRecipeSO);
                 waitingRecipeSOlist.Add(waitingRecipeSO);
+                OnRecipeSpawned?.Invoke(this,EventArgs.Empty);
             }
             
         }
@@ -51,12 +54,21 @@ public class DeliveryManage : MonoBehaviour
                 }
                 if(plateMatchesRecipe){
                     waitingRecipeSOlist.RemoveAt(i);
+                    OnRecipeCompleted?.Invoke(this,EventArgs.Empty);
+                    OnRecipeSuccess?.Invoke(this,EventArgs.Empty);
                     Debug.Log("success");
-                }else{
-                    Debug.Log("fail");
+                    return;
+                    
                 }
             }
+
         }
+
+            OnRecipeFailed?.Invoke(this,EventArgs.Empty);
+            Debug.Log("fail");
+    }
+    public List<RecipeSO> getWaitingList(){
+        return waitingRecipeSOlist;
     }
 }
 

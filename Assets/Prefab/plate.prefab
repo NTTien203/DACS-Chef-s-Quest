@@ -88,11 +88,11 @@ MonoBehaviour:
   kitchenObjectSO: {fileID: 11400000, guid: a5fbd369c26ac5040ae59ffa85e919cc, type: 2}
   validKitchenObj:
   - {fileID: 11400000, guid: c679ecf2ab83fd34c80db61977530ad5, type: 2}
-  - {fileID: 11400000, guid: 79e0e1cc66b20ca4a80ccf985a890f56, type: 2}
   - {fileID: 11400000, guid: 0afcf0a738d25be439a68dc230ba89f0, type: 2}
   - {fileID: 11400000, guid: da7e063eb6520d34aa28a3c03d079ff2, type: 2}
   - {fileID: 11400000, guid: aee4512f7fd75ce4789af06da46882e0, type: 2}
   - {fileID: 11400000, guid: 283579c72b0e42e4bab97be20aaeec2b, type: 2}
+  kitchenObjSOList: []
 --- !u!1001 &4654689622511162378
 PrefabInstance:
   m_ObjectHideFlags: 0

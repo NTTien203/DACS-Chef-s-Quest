@@ -20,6 +20,7 @@ public class Player : MonoBehaviour,IKitchenObjParent
            
         }  
     }   
+    public ParticleSystem dust;
     public float moveSpeed;
     [SerializeField] GameInput gameInput;
     [SerializeField]LayerMask counterLayerMask;
@@ -27,11 +28,13 @@ public class Player : MonoBehaviour,IKitchenObjParent
      Vector3 lastInterract;
      KitchenObject kitchenObject;
      [SerializeField] Transform GameObjHold;
+    public event EventHandler OnPickUpSomething;
     public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
     
     public class OnSelectedCounterChangedEventArgs : EventArgs{
         public BaseCounter selectedCounter;
     }
+    private bool IsWalking;
     void Start()
     {
         gameInput.OnInteractAction +=GameInput_OnInteractAction;
@@ -60,6 +63,10 @@ public class Player : MonoBehaviour,IKitchenObjParent
         movementHandle();
         interractHanddle();
     }
+
+    public bool isMoving(){
+        return IsWalking;
+    }
     //Movement Player
     void movementHandle(){
          float rotateSpeed=10f;
@@ -69,11 +76,20 @@ public class Player : MonoBehaviour,IKitchenObjParent
         Vector2 inputVector=gameInput.getMovementVector();
         inputVector=inputVector.normalized;
         Vector3 moveDir= new Vector3(inputVector.x,0,inputVector.y);
+        if (moveDir != Vector3.zero) {
+        dust.Play();
+        dust.gameObject.SetActive(true);
+    } else {
+        dust.Pause();
+        dust.gameObject.SetActive(false);
+    }
+        
         
        bool canMove=!Physics.CapsuleCast(transform.position,transform.position+Vector3.up,playerRadius,moveDir,moveDistance);
        if(canMove){
            transform.position+=moveDir*moveSpeed*Time.deltaTime;
         }
+        IsWalking=moveDir!=Vector3.zero;
          //rotate Player;
         transform.forward=Vector3.Slerp(transform.forward,moveDir,Time.deltaTime*rotateSpeed);
         
@@ -123,6 +139,9 @@ public class Player : MonoBehaviour,IKitchenObjParent
 
    public void SetKitchenObj(KitchenObject kitchenObject){
       this.kitchenObject=kitchenObject;
+      if(kitchenObject!=null){
+        OnPickUpSomething?.Invoke(this,EventArgs.Empty);
+      }
    }
 
    public bool hasKitchenObj(){

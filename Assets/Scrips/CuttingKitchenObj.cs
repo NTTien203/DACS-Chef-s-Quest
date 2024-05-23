@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 
 public class CuttingKitchenObj : BaseCounter,IHasProgress
 {
+    public static event EventHandler onAnyCut;
     public event EventHandler <IHasProgress.onProgressEventArgs> OnProgress;
     
      [SerializeField] CuttingRecipeSO[] cuttingKitchenObj;
@@ -40,6 +41,7 @@ public class CuttingKitchenObj : BaseCounter,IHasProgress
     {
         if(hasKitchenObj()){
             cuttingProgress++;
+            onAnyCut?.Invoke(this,EventArgs.Empty);
             KitchenObjectSO outputKitchenObj=getOutputKitchenObj(GetKitchenObj().GetKitchenObjectSO());
             OnProgress?.Invoke(this, new IHasProgress.onProgressEventArgs{
                     progress=(float)cuttingProgress/getCuttingKitchenObjSO(GetKitchenObj().GetKitchenObjectSO()).CuttingTimes

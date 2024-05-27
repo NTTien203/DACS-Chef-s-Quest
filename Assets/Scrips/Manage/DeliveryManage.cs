@@ -13,6 +13,7 @@ public class DeliveryManage : MonoBehaviour
     List<RecipeSO> waitingRecipeSOlist;
     float spawnRecipeTimer;
     float spawnRecipeMax=5f;
+     int RecipeSuccessCount=0;
 
     public static DeliveryManage instance 
          { get; set; }
@@ -53,6 +54,7 @@ public class DeliveryManage : MonoBehaviour
                     }
                 }
                 if(plateMatchesRecipe){
+                    RecipeSuccessCount++;
                     waitingRecipeSOlist.RemoveAt(i);
                     OnRecipeCompleted?.Invoke(this,EventArgs.Empty);
                     OnRecipeSuccess?.Invoke(this,EventArgs.Empty);
@@ -69,6 +71,10 @@ public class DeliveryManage : MonoBehaviour
     }
     public List<RecipeSO> getWaitingList(){
         return waitingRecipeSOlist;
+    }
+
+    public int getRecipeCompleteCount(){
+        return RecipeSuccessCount;
     }
 }
 

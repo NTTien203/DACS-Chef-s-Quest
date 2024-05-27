@@ -7,8 +7,7 @@ using UnityEngine;
 public class SoundManage : MonoBehaviour
 {
     [SerializeField] private AudioRefSO audioRefSO;
-    
-
+    //singleton pattern
      public static SoundManage Instance {get; private set;}
 
      private void Awake() {

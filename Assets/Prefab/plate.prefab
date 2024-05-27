@@ -145,6 +145,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: food_ingredient_tomato_slice
       objectReference: {fileID: 0}
+    - target: {fileID: 6491321846093821255, guid: 0d62b66a9544c7f4cba127dd933ed180, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

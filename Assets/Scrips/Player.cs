@@ -43,18 +43,24 @@ public class Player : MonoBehaviour,IKitchenObjParent
 
     private void GameInput_OnAlternateInteractAction(object sender, EventArgs e)
     {
-        if(selectedCounter!=null){
+        if(!GameManage.Instance.IsGamePlaying())return;
+            if(selectedCounter!=null){
             selectedCounter.InteractAlternate(this);
         }
+        
+        
     }
 
     //Game Interact Action : E
     private void GameInput_OnInteractAction(object sender, EventArgs e)
     {
-        if(selectedCounter!=null){
+        if(!GameManage.Instance.IsGamePlaying()) return;
+            if(selectedCounter!=null){
             selectedCounter.Interact(this);
         }
        
+        
+        
     }
 
     // Update is called once per frame

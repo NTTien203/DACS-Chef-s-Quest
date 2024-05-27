@@ -10,10 +10,12 @@ public class ContainPlate : BaseCounter
    
     
     public override void Interact(Player player){
-        
-          GameObject kitchenObj=Instantiate(objectSO.prefab);
+        if(!player.hasKitchenObj()){
+              GameObject kitchenObj=Instantiate(objectSO.prefab);
          kitchenObj.GetComponent<KitchenObject>().setkitchenObjParent(player);
-        // countPlate--;
+        }
+     
+        
         
         
    }

@@ -10,8 +10,17 @@ public class scenceManage : MonoBehaviour
     private void Awake() {
         Instance=this;
     }
+    public void LoadFirstScence(){
+         SceneManager.LoadScene("Scence1");
+    }
    public void LoadNextScence(){
         SceneManager.LoadScene("Scence2");
+   }
+   public void LoadTutorialScence(){
+     SceneManager.LoadScene("Tutorial");
+   }
+    public void LoadStartScence(){
+     SceneManager.LoadScene("StartScence");
    }
 
 }

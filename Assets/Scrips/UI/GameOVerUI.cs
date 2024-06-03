@@ -9,7 +9,7 @@ public class GameOVerUI : MonoBehaviour
 {
     [SerializeField ]TextMeshProUGUI RecipeSuccessCount;
     [SerializeField] TextMeshProUGUI TextState;
-    
+    [SerializeField] int TargetScore;
     void Start()
     {
         GameManage.Instance.OnStateChange+=GameManage_OnStateChange;
@@ -19,7 +19,7 @@ public class GameOVerUI : MonoBehaviour
     private void GameManage_OnStateChange(object sender, EventArgs e)
     {
         if(GameManage.Instance.isGameOver()){
-            if(DeliveryManage.instance.getRecipeCompleteCount()>=1){
+            if(DeliveryManage.instance.getRecipeCompleteCount()>=TargetScore){
                 TextState.text="Congratulation";
                 RecipeSuccessCount.text=DeliveryManage.instance.getRecipeCompleteCount().ToString();
                 scenceManage.Instance.Invoke("LoadNextScence", 5f);

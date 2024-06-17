@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PlayerSound : MonoBehaviour
 {
+
    private Player player;
     private float footstepTimer;
     private float footstepTimerMax = 0.1f;
+   
     
 
     private void Awake()
@@ -18,14 +20,15 @@ public class PlayerSound : MonoBehaviour
     {
         footstepTimer -= Time.deltaTime;
 
-        if(footstepTimer < 0)
-        {
-            footstepTimer = footstepTimerMax;
+         if(footstepTimer < 0)
+         {
+             footstepTimer = footstepTimerMax;
 
             if(player.isMoving())
             {
-                float volume = 1f;
+                float volume=SoundManage.Instance.volume;
                  SoundManage.Instance.PlayFootstepsSound(player.transform.position, volume);
+                 
             }            
         } 
     }
